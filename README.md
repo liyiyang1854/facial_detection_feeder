@@ -1,1 +1,1 @@
-# facial_detection_feeder
+# serial-communication
