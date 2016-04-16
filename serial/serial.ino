@@ -20,7 +20,6 @@ void setup(){
 void loop(){
   
   Serial.println("serial start");
-  //SetPosition(1,0);
   pos1 = GetPosition(1);
   Serial.println("Get pos1");
   Serial.println(pos1);
