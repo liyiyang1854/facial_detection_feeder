@@ -31,6 +31,7 @@ void loop(){
   //Serial.println(pos1);
   //delay(100);
   //Serial.println("loop");
+  /*
   if (Serial.available()){
     Serial.println("serial available");
     nextByte = Serial.read();
@@ -66,15 +67,39 @@ void loop(){
       else{count ++;}
       prev_x = x;
     }
-    
+    */
+    count = 3;
     if (count == 3){
       Serial.println("small small small");
       //2. grab food
-      //SetPosition(1,1000);
-      //SetPosition(2,512);
-      //SetPosition(3,200);
+      //set up
+      SetPosition(1,1000);
+      SetPosition(2,512);
+      SetPosition(3,200);
+      delay(1000);
+      //1. move servo 2 to 330
+      for (int i = 512; i >330; i--){
+        SetPosition(2,i);
+        delay(10);
+      }
+      //2. move servo 3 to get the food
+      for (int i = 200; i < 400; i++){
+        SetPosition(3,i);
+        delay(10);
+      }
+      delay(1000);
+      //3. move servo 2 back to 512 and servo 3 back to 200
+      int j = 400;
+      for (int i = 330; i < 512; i++){
+        SetPosition(2,i);
+        SetPosition(3,j);
+        j--;
+        delay(10);
+      }
+      
+      
     }
-  } // serial available
+ // } // serial available
   
   //===============================================================
   //1. wait until the pos error is small
