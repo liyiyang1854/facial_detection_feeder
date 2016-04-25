@@ -12,33 +12,34 @@
 int pos;
 void setup()
 {
-  /*
+  
   // up & down
   SetPosition(1,0); //set the position of servo # 1 to '0'
   delay(100);//wait for servo to move
   SetPosition(2,200);
   SetPosition(3,512);
-  */
   /*
+  
   //------------------------------------------
   //forward & backward
   SetPosition(2,680);
   SetPosition(3,60);
   delay(1000);
   */
-  
+  /*
   //------------------------------------------
   //speed control
   SetPosition(2,680);
   SetPosition(3,60);
   delay(1000);
-  
+  */
 }
 
 void loop()
 {
   
   //------------------------------------------
+  /*
   //speed control
   for(int i=680;i>199;i--)
   {
@@ -52,7 +53,7 @@ void loop()
     if (512+200-i>59){SetPosition(3,512-(i-200));}
     delay(5);//wait for servo to move
   } 
-  
+  */
   /*
   //------------------------------------------
   //forward & backward
@@ -69,7 +70,7 @@ void loop()
     delay(10);//wait for servo to move
   } 
   */
-  /*
+  
   // up & down
   for(int i=200;i<357;i++)
   {
@@ -95,7 +96,7 @@ void loop()
     SetPosition(3,668+(i-356));
     delay(10);//wait for servo to move
   } 
-  */
+  
   //------------------------------------------
   
 }

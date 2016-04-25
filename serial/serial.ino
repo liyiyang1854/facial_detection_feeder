@@ -31,9 +31,9 @@ void loop(){
   //Serial.println(pos1);
   //delay(100);
   //Serial.println("loop");
-  /*
+  
   if (Serial.available()){
-    Serial.println("serial available");
+    //Serial.println("serial available");
     nextByte = Serial.read();
     
     if (nextByte == ','){  
@@ -55,7 +55,8 @@ void loop(){
       nextx = 0;
       prev_value = prev_value*10+nextByte-48; 
     }
-    
+  }
+    /*
     //1. wait until the pos error is small
     if (nextx == 1){
       Serial.println("check error");
@@ -68,6 +69,7 @@ void loop(){
       prev_x = x;
     }
     */
+    /*
     count = 3;
     if (count == 3){
       Serial.println("small small small");
@@ -99,6 +101,7 @@ void loop(){
       
       
     }
+    */
  // } // serial available
   
   //===============================================================
