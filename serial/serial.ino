@@ -19,9 +19,12 @@ boolean nextx = 0;
 void setup(){
   //set up
   Serial.begin(38400);
+  delay(10);
+  Serial.setTimeout(10);
   SetPosition(1,1000);
   SetPosition(2,512);
-  SetPosition(3,200);
+  SetPosition(3,512);
+  delay(1000);
 }
 
 
@@ -56,7 +59,7 @@ void loop(){
       prev_value = prev_value*10+nextByte-48; 
     }
   }
-    /*
+    
     //1. wait until the pos error is small
     if (nextx == 1){
       Serial.println("check error");
@@ -68,41 +71,137 @@ void loop(){
       else{count ++;}
       prev_x = x;
     }
-    */
-    /*
-    count = 3;
-    if (count == 3){
+    
+    
+    //count = 3;
+    if (count == 10){
       Serial.println("small small small");
-      //2. grab food
-      //set up
-      SetPosition(1,1000);
-      SetPosition(2,512);
-      SetPosition(3,200);
-      delay(1000);
-      //1. move servo 2 to 330
-      for (int i = 512; i >330; i--){
+      
+      //grab food 
+      //1. down
+      for (int i = 512; i > 305; i--){
+        SetPosition(3,i);
+        SetPosition(2,512-(i-512));
+        delay(5);
+      }
+      for (int i = 306; i > 99; i--){
+        SetPosition(3,i);
+        SetPosition(2,718-(306-i));
+        delay(5);
+      }
+      for (int i = 512; i > 289; i--){
+        SetPosition(2,i);
+        if(100-(i-512)<251){SetPosition(3,100-(i-512));}
+        delay(5);
+      } 
+      //SetPosition(2,290);
+      //SetPosition(3,250);
+    
+      //2. grab
+      for (int i = 290; i > 269; i--){
         SetPosition(2,i);
         delay(10);
       }
-      //2. move servo 3 to get the food
-      for (int i = 200; i < 400; i++){
+      for (int i = 250; i < 651; i++){
+        SetPosition(3,i);
+        if (i%2 == 0){SetPosition(2,270-(i-250)/2);}
+        delay(10);
+      }
+      //SetPosition(2,70);
+      //SetPosition(3,650);
+  
+      //3. back  
+      for (int i = 70; i > 61; i--){
+        SetPosition(2,i);
+        delay(10);
+      }
+      for (int i = 62; i < 512; i++){
+        SetPosition(2,i);
+        SetPosition(3,650-(i-62));
+        delay(10);
+      }
+      /*
+      for (int i = 200; i < 513; i++){
+        SetPosition(3,i);  
         SetPosition(3,i);
         delay(10);
       }
-      delay(1000);
-      //3. move servo 2 back to 512 and servo 3 back to 200
-      int j = 400;
-      for (int i = 330; i < 512; i++){
-        SetPosition(2,i);
-        SetPosition(3,j);
-        j--;
+      */
+      
+      //3. move to the position
+      /*
+      Xmin, Xmax, Ymin, Ymax
+      
+      */
+      //turn 
+      X; // formula
+      for (int i = 1000; i < desire_angle; i++){
+        SetPosition(1,i);
+        //SetPosition(3,650-(i-62));
         delay(10);
       }
       
+      //move forward
       
-    }
-    */
- // } // serial available
+      for (int i = 512; i < desire_angle; i++){
+        SetPosition(2,i);
+        delay(10);
+      }
+      
+      for (int i = 200; i < desire_angle; i++){
+        SetPosition(3,i);
+        delay(10);
+      }
+      
+      //4. hold for some time
+      delay(10000);
+      
+      //5. move back
+      int temp_pos2;int temp_pos2;
+      while(GetPosition(2) == -1)
+      {temp_pos2 = GetPosition(2);}
+      if (temp_pos2 < 512){
+        for (int i = temp_pos2; i < 512; i++){
+          SetPosition(2,i);
+          //SetPosition(3,650-(i-62));
+          delay(10);
+        }
+      }
+      else (temp_pos2 > 511){
+        for (int i = temp_pos2; i > 511; i--){
+            SetPosition(2,i);
+            //SetPosition(3,650-(i-62));
+            delay(10);
+         }
+      }
+      int temp_pos3; 
+      while(GetPosition(3) == -1)
+      {temp_pos3 = GetPosition(3);}
+      if (temp_pos3 < 512){
+        for (int i = temp_pos3; i < 512; i++){
+          SetPosition(3,i);
+          //SetPosition(3,650-(i-62));
+          delay(10);
+        }
+      }
+      else (temp_pos3 > 511){
+        for (int i = temp_pos3; i > 511; i--){
+            SetPosition(3,i);
+            //SetPosition(3,650-(i-62));
+            delay(10);
+         }
+      }
+      int temp_pos1; 
+      while(GetPosition(1) == -1){temp_pos1 = GetPosition(1);}
+      for (int i = temp_pos1; i < 1001; i++){
+        SetPosition(1,i);
+        //SetPosition(3,650-(i-62));
+        delay(10);
+      }
+     
+      
+      
+    }//count == 10
   
   //===============================================================
   //1. wait until the pos error is small
@@ -110,21 +209,5 @@ void loop(){
   //3. move to the position
   //4. hold for some time
   //5. move back
-  
-  /*
-  SetPosition(1,0); // face the food
-  for(int i=0;i<1024;i++)
-  {
-    SetPosition(1,i); //set the position of servo #1 to the current value of 'i'
-    delay(10);//wait for servo to move
-  }
-  SetPosition(3,250);
-  */
-  //===============================================================
-  /*
-  SetPosition(1,512);
-  SetPosition(2,512);
-  SetPosition(3,512);
-  */
   
 }
