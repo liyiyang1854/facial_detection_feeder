@@ -36,7 +36,7 @@ void loop(){
   //delay(100);
   //Serial.println("loop");
   
-  /*
+  
   if (Serial.available()){
     //Serial.println("serial available");
     nextByte = Serial.read();
@@ -75,12 +75,11 @@ void loop(){
       
     }
   
-    */
     
-    count = 10;
+    //count = 10;
     if (count == 10){
-      x= random(140,220);
-      y = random(70,105);
+      //x= random(140,220);
+      //y = random(70,105);
       Serial.print("x: ");
       Serial.println(x);
       Serial.print("y: ");
@@ -94,17 +93,17 @@ void loop(){
       for (int i = 512; i > 305; i--){
         SetPosition(3,i);
         SetPosition(2,512-(i-512));
-        delay(5);
+        delay(8);
       }
       for (int i = 306; i > 99; i--){
         SetPosition(3,i);
         SetPosition(2,718-(306-i));
-        delay(5);
+        delay(8);
       }
       for (int i = 512; i > 289; i--){
         SetPosition(2,i);
         if(100-(i-512)<251){SetPosition(3,100-(i-512));}
-        delay(5);
+        delay(8);
       } 
       //SetPosition(2,290);
       //SetPosition(3,250);
