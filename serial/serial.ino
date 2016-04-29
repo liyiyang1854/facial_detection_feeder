@@ -29,12 +29,14 @@ void setup(){
 
 
 void loop(){
-  //pos1 = GetPosition(1);
+ 
+ //pos1 = GetPosition(1);
   //Serial.println("Get pos1");
   //Serial.println(pos1);
   //delay(100);
   //Serial.println("loop");
   
+  /*
   if (Serial.available()){
     //Serial.println("serial available");
     nextByte = Serial.read();
@@ -59,7 +61,7 @@ void loop(){
       prev_value = prev_value*10+nextByte-48; 
     }
   }
-    
+ 
     //1. wait until the pos error is small
     if (nextx == 1){
       Serial.println("check error");
@@ -70,15 +72,25 @@ void loop(){
       }
       else{count ++;}
       prev_x = x;
-    }
-    
-    
-    //count = 3;
-    if (count == 10){
-      Serial.println("small small small");
       
-      //grab food 
+    }
+  
+    */
+    
+    count = 10;
+    if (count == 10){
+      x= random(140,220);
+      y = random(70,105);
+      Serial.print("x: ");
+      Serial.println(x);
+      Serial.print("y: ");
+      Serial.println(y); 
+      //Serial.println("small small small");
+      
+      //grab food
+      Serial.println("grab food"); 
       //1. down
+      Serial.println("down"); 
       for (int i = 512; i > 305; i--){
         SetPosition(3,i);
         SetPosition(2,512-(i-512));
@@ -98,6 +110,7 @@ void loop(){
       //SetPosition(3,250);
     
       //2. grab
+      Serial.println("grab");
       for (int i = 290; i > 269; i--){
         SetPosition(2,i);
         delay(10);
@@ -111,6 +124,7 @@ void loop(){
       //SetPosition(3,650);
   
       //3. back  
+      Serial.println("back");
       for (int i = 70; i > 61; i--){
         SetPosition(2,i);
         delay(10);
@@ -129,76 +143,92 @@ void loop(){
       */
       
       //3. move to the position
+      // start at (1000,512,200)
       /*
       Xmin, Xmax, Ymin, Ymax
       
       */
+      
+      
       //turn 
-      X; // formula
-      for (int i = 1000; i < desire_angle; i++){
+      
+      delay(1000);
+      Serial.println("turn1");
+      int desire_turn_pos1 = 940 - x; // formula
+      Serial.print("desure_turn_pos1: ");
+      Serial.println(desire_turn_pos1); 
+      for (int i = 1000; i > desire_turn_pos1; i--){
+        //Serial.println("set 1");
         SetPosition(1,i);
-        //SetPosition(3,650-(i-62));
         delay(10);
       }
       
       //move forward
       
-      for (int i = 512; i < desire_angle; i++){
+      for (int i = 512; i > 480; i--){
         SetPosition(2,i);
+        SetPosition(3,200+(512-i));
         delay(10);
       }
       
-      for (int i = 200; i < desire_angle; i++){
+       Serial.println("turn3");
+      int temp_turn3 = 430-1.43*y;
+      int desire_turn_pos3 = (int) temp_turn3;
+      Serial.print("desure_turn_pos3: ");
+      Serial.println(desire_turn_pos3);
+      for (int i = 232; i < desire_turn_pos3; i++){
         SetPosition(3,i);
         delay(10);
       }
       
-      //4. hold for some time
-      delay(10000);
-      
-      //5. move back
-      int temp_pos2;int temp_pos2;
-      while(GetPosition(2) == -1)
-      {temp_pos2 = GetPosition(2);}
-      if (temp_pos2 < 512){
-        for (int i = temp_pos2; i < 512; i++){
-          SetPosition(2,i);
-          //SetPosition(3,650-(i-62));
-          delay(10);
-        }
-      }
-      else (temp_pos2 > 511){
-        for (int i = temp_pos2; i > 511; i--){
-            SetPosition(2,i);
-            //SetPosition(3,650-(i-62));
-            delay(10);
-         }
-      }
-      int temp_pos3; 
-      while(GetPosition(3) == -1)
-      {temp_pos3 = GetPosition(3);}
-      if (temp_pos3 < 512){
-        for (int i = temp_pos3; i < 512; i++){
-          SetPosition(3,i);
-          //SetPosition(3,650-(i-62));
-          delay(10);
-        }
-      }
-      else (temp_pos3 > 511){
-        for (int i = temp_pos3; i > 511; i--){
-            SetPosition(3,i);
-            //SetPosition(3,650-(i-62));
-            delay(10);
-         }
-      }
-      int temp_pos1; 
-      while(GetPosition(1) == -1){temp_pos1 = GetPosition(1);}
-      for (int i = temp_pos1; i < 1001; i++){
-        SetPosition(1,i);
-        //SetPosition(3,650-(i-62));
+      Serial.println("turn2");
+      int desire_turn_pos2 = y + 352;
+      Serial.print("desure_turn_pos2: ");
+      Serial.println(desire_turn_pos2);
+      for (int i = 480; i > desire_turn_pos2; i--){
+        SetPosition(2,i);
         delay(10);
       }
+      
      
+      
+      //4. hold for some time
+      Serial.println("hold for 5 sec");
+      delay(5000);
+      
+      //5. move back
+      Serial.println("move back");
+      for (int i = desire_turn_pos1; i < 1000; i++){
+        SetPosition(1,i);
+        delay(10);
+      }
+      
+      if (desire_turn_pos2 < 512){
+        for (int i = desire_turn_pos2; i < 512; i++){
+          SetPosition(2,i);
+          delay(10);
+        }
+      }
+      else if (desire_turn_pos2 > 511){
+        for (int i = desire_turn_pos2; i > 511; i--){
+            SetPosition(2,i);
+            delay(10);
+         }
+      }
+      
+      if (desire_turn_pos3 < 512){
+        for (int i = desire_turn_pos3; i < 512; i++){
+          SetPosition(3,i);
+          delay(10);
+        }
+      }
+      else if (desire_turn_pos3 > 511){
+        for (int i = desire_turn_pos3; i > 511; i--){
+            SetPosition(3,i);
+            delay(10);
+         }
+      }
+ 
       
       
     }//count == 10
@@ -209,5 +239,7 @@ void loop(){
   //3. move to the position
   //4. hold for some time
   //5. move back
-  
+ // SetPosition(1,760);
+  //SetPosition(2,420);
+  //SetPosition(3,330);
 }
